@@ -70,6 +70,35 @@ paths:
         '500':
           description: Ошибка сервера
 
+  /routes/search-by-name:
+    get:
+      tags:
+        - Route Search
+      summary: Найти маршруты по подстроке в поле name
+      description: Возвращает массив маршрутов, где поле `name` содержит заданную подстроку.
+      parameters:
+        - in: query
+          name: substring
+          required: true
+          schema:
+            type: string
+          description: Подстрока для поиска в поле name
+      responses:
+        '200':
+          description: Массив объектов Route, где поле `name` содержит подстроку
+          content:
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Route'
+        '400':
+          description: Неправильные параметры запроса
+        '404':
+          description: Маршруты не найдены
+        '500':
+          description: Ошибка сервера
+
   /routes/{id}:
     get:
       tags:
