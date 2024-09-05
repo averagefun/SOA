@@ -1,0 +1,130 @@
+openapi: 3.0.0
+info:
+  title: Navigator API
+  version: 1.0.0
+  description: 'API для навигации и взаимодействия с сервисом маршрутов'
+
+servers:
+  - url: https://localhost:8080/api/v1
+    description: Основной сервер
+
+paths:
+  /navigator/route/{id-from}/{id-to}/{shortest}:
+    get:
+      summary: Найти маршрут между локациями
+      description: 'Возвращает самый короткий или длинный маршрут между указанными локациями в зависимости от параметра shortest'
+      parameters:
+        - in: path
+          name: id-from
+          required: true
+          schema:
+            type: integer
+          description: Идентификатор начальной локации
+        - in: path
+          name: id-to
+          required: true
+          schema:
+            type: integer
+          description: Идентификатор конечной локации
+        - in: path
+          name: shortest
+          required: true
+          schema:
+            type: boolean
+          description: Если true — найти кратчайший маршрут, если false — найти самый длинный маршрут
+      responses:
+        '200':
+          description: Найденный маршрут
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Route'
+        '404':
+          description: Маршрут не найден
+
+  /navigator/routes/{id-from}/{id-to}/{order-by}:
+    get:
+      summary: Найти все маршруты между локациями с сортировкой
+      description: 'Возвращает все маршруты между указанными локациями с возможностью сортировки по заданному параметру'
+      parameters:
+        - in: path
+          name: id-from
+          required: true
+          schema:
+            type: integer
+          description: Идентификатор начальной локации
+        - in: path
+          name: id-to
+          required: true
+          schema:
+            type: integer
+          description: Идентификатор конечной локации
+        - in: path
+          name: order-by
+          required: true
+          schema:
+            type: string
+          description: Параметр для сортировки (например, name, distance)
+      responses:
+        '200':
+          description: Найденные маршруты
+          content:
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Route'
+        '404':
+          description: Маршрут не найден
+
+components:
+  schemas:
+    Route:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        coordinates:
+          $ref: '#/components/schemas/Coordinates'
+        from:
+          $ref: '#/components/schemas/Location'
+        to:
+          $ref: '#/components/schemas/Location'
+        distance:
+          type: integer
+      required:
+        - id
+        - name
+        - coordinates
+        - from
+        - to
+        - distance
+
+    Coordinates:
+      type: object
+      properties:
+        x:
+          type: integer
+        y:
+          type: number
+      required:
+        - x
+        - y
+
+    Location:
+      type: object
+      properties:
+        x:
+          type: integer
+        y:
+          type: number
+        z:
+          type: number
+        name:
+          type: string
+      required:
+        - x
+        - y
+        - z

@@ -1,0 +1,214 @@
+openapi: 3.0.0
+info:
+  title: Route Collection API
+  version: 1.0.0
+  description: API для управления коллекцией объектов класса Route
+servers:
+  - url: https://localhost:8080/api/v1
+    description: Основной сервер
+
+paths:
+  /routes:
+    get:
+      summary: Получить список всех маршрутов
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+            default: 1
+          description: Номер страницы для постраничного вывода
+        - in: query
+          name: size
+          schema:
+            type: integer
+            default: 10
+          description: Размер страницы для постраничного вывода
+        - in: query
+          name: sort
+          schema:
+            type: string
+          description: Поле для сортировки (например, name, distance)
+        - in: query
+          name: filter
+          schema:
+            type: object
+          description: Фильтрация по полям Route
+        - in: query
+          name: name
+          schema:
+            type: string
+          description: Фильтр по подстроке в поле name
+      responses:
+        '200':
+          description: Массив объектов Route
+          content:
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Route'
+        '400':
+          description: Неправильные параметры запроса
+        '500':
+          description: Ошибка сервера
+
+    post:
+      summary: Добавить новый маршрут
+      requestBody:
+        required: true
+        content:
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Route'
+      responses:
+        '201':
+          description: Маршрут создан
+        '400':
+          description: Ошибка валидации данных
+        '500':
+          description: Ошибка сервера
+
+  /routes/{id}:
+    get:
+      summary: Получить маршрут по ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Объект Route
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Route'
+        '404':
+          description: Маршрут не найден
+
+    put:
+      summary: Обновить маршрут по ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Route'
+      responses:
+        '200':
+          description: Маршрут обновлен
+        '400':
+          description: Ошибка валидации данных
+        '404':
+          description: Маршрут не найден
+        '500':
+          description: Ошибка сервера
+
+    delete:
+      summary: Удалить маршрут по ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Маршрут удален
+        '404':
+          description: Маршрут не найден
+
+  /routes/max-from:
+    get:
+      summary: Получить маршрут с максимальным значением поля from
+      responses:
+        '200':
+          description: Маршрут с максимальным полем from
+          content:
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Route'
+
+  /routes/count-by-distance:
+    get:
+      summary: Получить количество маршрутов с distance меньше заданного
+      parameters:
+        - in: query
+          name: maxDistance
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Количество маршрутов
+          content:
+            application/xml:
+              schema:
+                type: integer
+
+components:
+  schemas:
+    Route:
+      type: object
+      properties:
+        id:
+          type: integer
+          minimum: 1
+        name:
+          type: string
+          minLength: 1
+        coordinates:
+          $ref: '#/components/schemas/Coordinates'
+        creationDate:
+          type: string
+          format: date-time
+        from:
+          $ref: '#/components/schemas/Location'
+        to:
+          $ref: '#/components/schemas/Location'
+        distance:
+          type: integer
+          minimum: 2
+      required:
+        - id
+        - name
+        - coordinates
+        - creationDate
+        - distance
+
+    Coordinates:
+      type: object
+      properties:
+        x:
+          type: integer
+          minimum: -491
+        y:
+          type: number
+      required:
+        - x
+        - y
+
+    Location:
+      type: object
+      properties:
+        x:
+          type: integer
+        y:
+          type: number
+        z:
+          type: number
+        name:
+          type: string
+          maxLength: 729
+      required:
+        - x
+        - y
+        - z
