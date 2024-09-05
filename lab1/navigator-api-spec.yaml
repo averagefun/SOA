@@ -11,6 +11,8 @@ servers:
 paths:
   /navigator/route/{id-from}/{id-to}/{shortest}:
     get:
+      tags:
+        - Route Navigation
       summary: Найти маршрут между локациями
       description: 'Возвращает самый короткий или длинный маршрут между указанными локациями в зависимости от параметра shortest'
       parameters:
@@ -44,6 +46,8 @@ paths:
 
   /navigator/routes/{id-from}/{id-to}/{order-by}:
     get:
+      tags:
+        - Route Navigation
       summary: Найти все маршруты между локациями с сортировкой
       description: 'Возвращает все маршруты между указанными локациями с возможностью сортировки по заданному параметру'
       parameters:
