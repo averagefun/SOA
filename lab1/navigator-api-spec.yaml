@@ -77,7 +77,12 @@ paths:
           content:
             application/xml:
               schema:
-                $ref: '#/components/schemas/Route'
+                type: array
+                xml:
+                  name: routes
+                  wrapped: true
+                items:
+                  $ref: '#/components/schemas/Route'
         '400':
           description: Ошибка валидации запроса
         '404':
