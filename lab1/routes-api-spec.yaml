@@ -30,8 +30,6 @@ paths:
           description: Поле для сортировки (например, name, distance)
         - in: query
           name: filter
-          schema:
-            type: object
           description: Фильтрация по полям Route
         - in: query
           name: name
@@ -199,6 +197,8 @@ paths:
           content:
             application/xml:
               schema:
+                xml:
+                  name: count
                 type: integer
 
 components:
