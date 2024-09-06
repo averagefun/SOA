@@ -8,7 +8,7 @@ paths:
   /routes:
     get:
       tags:
-        - Routes Collection
+        - Base operations
       summary: Получить список всех маршрутов
       parameters:
         - in: query
@@ -54,7 +54,7 @@ paths:
 
     post:
       tags:
-        - Routes Collection
+        - Base operations
       summary: Добавить новый маршрут
       requestBody:
         required: true
@@ -73,7 +73,7 @@ paths:
   /routes/search-by-name:
     get:
       tags:
-        - Route Search
+        - Special Operations
       summary: Найти маршруты по подстроке в поле name
       description: Возвращает массив маршрутов, где поле `name` содержит заданную подстроку.
       parameters:
@@ -102,7 +102,7 @@ paths:
   /routes/{id}:
     get:
       tags:
-        - Routes Management
+        - Base operations
       summary: Получить маршрут по ID
       parameters:
         - in: path
@@ -122,7 +122,7 @@ paths:
 
     put:
       tags:
-        - Routes Management
+        - Base operations
       summary: Обновить маршрут по ID
       parameters:
         - in: path
@@ -148,7 +148,7 @@ paths:
 
     delete:
       tags:
-        - Routes Management
+        - Base operations
       summary: Удалить маршрут по ID
       parameters:
         - in: path
@@ -165,7 +165,7 @@ paths:
   /routes/max-from:
     get:
       tags:
-        - Special Queries
+        - Special Operations
       summary: Получить маршрут с максимальным значением поля from
       responses:
         '200':
@@ -178,7 +178,7 @@ paths:
   /routes/count-by-distance:
     get:
       tags:
-        - Special Queries
+        - Special Operations
       summary: Получить количество маршрутов с distance меньше заданного
       parameters:
         - in: query
