@@ -45,6 +45,9 @@ paths:
             application/xml:
               schema:
                 type: array
+                xml:
+                  name: routes
+                  wrapped: true
                 items:
                   $ref: '#/components/schemas/Route'
         '400':
@@ -77,7 +80,7 @@ paths:
       summary: Найти маршруты по подстроке в поле name
       description: Возвращает массив маршрутов, где поле `name` содержит заданную подстроку.
       parameters:
-        - in: query
+        - in: path
           name: value
           required: true
           schema:
@@ -90,6 +93,9 @@ paths:
             application/xml:
               schema:
                 type: array
+                xml:
+                  name: routes
+                  wrapped: true
                 items:
                   $ref: '#/components/schemas/Route'
         '400':
@@ -181,7 +187,7 @@ paths:
         - Special Operations
       summary: Получить количество маршрутов с distance меньше заданного
       parameters:
-        - in: query
+        - in: path
           name: value
           required: true
           schema:
@@ -199,6 +205,8 @@ components:
   schemas:
     Route:
       type: object
+      xml:
+        name: "route"
       properties:
         id:
           type: integer
