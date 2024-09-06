@@ -41,6 +41,8 @@ paths:
             application/xml:
               schema:
                 $ref: '#/components/schemas/Route'
+        '400':
+          description: Ошибка валидации запроса
         '404':
           description: Маршрут не найден
 
@@ -75,9 +77,9 @@ paths:
           content:
             application/xml:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Route'
+                $ref: '#/components/schemas/Route'
+        '400':
+          description: Ошибка валидации запроса
         '404':
           description: Маршрут не найден
 
