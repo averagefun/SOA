@@ -186,6 +186,7 @@ paths:
           required: true
           schema:
             type: integer
+          description: Максимальное значение distance
       responses:
         '200':
           description: Количество маршрутов
