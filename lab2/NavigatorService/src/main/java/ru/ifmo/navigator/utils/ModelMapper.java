@@ -44,7 +44,7 @@ public class ModelMapper {
         dto.setHealth(health);
         dto.setMarinesCount(marinesCount);
         dto.setSpaceMarines(spaceMarines);
-        dto.setCoordinates(Coordinates.of(starShip.getCoordinateX(), starShip.getCoordinateY()));
+        dto.setCoordinates(new Coordinates(1, 1.0)); //TODO fix
         return dto;
     }
 

@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<persistence>
-    <persistence-unit name="SpaceMarine">
-        <class>ru.ifmo.core.SpaceMarine</class>
-        <class>ru.ifmo.core.StarShip</class>
-        <jta-data-source>java:/PostgresDS</jta-data-source>
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             version="2.2">
+    <persistence-unit name="default">
+        <class>ru.ifmo.core.Route</class>
         <properties>
-            <property name="javax.persistence.schema-generation.database.action"
-                      value="create"/>
-            <property name="hibernate.jpa.compliance.global_id_generators" value="false"/>
+            <!-- Настройки подключения к базе данных -->
+            <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/postgres"/>
+            <property name="javax.persistence.jdbc.user" value="postgres"/>
+            <property name="javax.persistence.jdbc.password" value="studs"/>
+            <!-- Дополнительные настройки JPA -->
+            <property name="javax.persistence.schema-generation.database.action" value="update"/>
         </properties>
     </persistence-unit>
 </persistence>

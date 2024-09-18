@@ -1,23 +1,29 @@
 package ru.ifmo.core;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Embeddable;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
-@Embeddable
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Coordinates {
+public class LocationDTO {
 
-    @Min(-491)
+    private Integer id;
+
     @NotNull
     private Integer x;
 
     @NotNull
     private Double y;
+
+    @NotNull
+    private Double z;
+
+    @Size(max = 729)
+    private String name;
 }
