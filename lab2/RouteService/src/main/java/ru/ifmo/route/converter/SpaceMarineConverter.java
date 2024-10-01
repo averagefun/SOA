@@ -15,7 +15,7 @@ public class SpaceMarineConverter {
     public SpaceMarineResponse entityToResponse(SpaceMarine spaceMarine, SpaceMarineResponse response){
         response.setId(spaceMarine.getId());
         response.setName(spaceMarine.getName());
-        response.setCoordinates(Coordinates.of(spaceMarine.getCoordinateX(), spaceMarine.getCoordinateY()));
+        response.setCoordinates(new Coordinates(spaceMarine.getCoordinateX(), spaceMarine.getCoordinateY().doubleValue()));
         response.setHealth(spaceMarine.getHealth());
         response.setCategory(spaceMarine.getCategory());
         response.setCreationDate(spaceMarine.getCreationDate());
@@ -29,7 +29,7 @@ public class SpaceMarineConverter {
     public SpaceMarine createRequestToEntity(SpaceMarineCreateRequest request, SpaceMarine spaceMarine){
         spaceMarine.setName(request.getName());
         spaceMarine.setCoordinateX(request.getCoordinates().getX());
-        spaceMarine.setCoordinateY(request.getCoordinates().getY());
+        spaceMarine.setCoordinateY(request.getCoordinates().getY().longValue());
         spaceMarine.setHealth(request.getHealth());
         spaceMarine.setCategory(request.getCategory());
         spaceMarine.setWeaponType(request.getWeaponType());
@@ -40,7 +40,7 @@ public class SpaceMarineConverter {
     public SpaceMarine updateRequestToEntity(SpaceMarineUpdateRequest request, SpaceMarine spaceMarine){
         spaceMarine.setName(request.getName());
         spaceMarine.setCoordinateX(request.getCoordinates().getX());
-        spaceMarine.setCoordinateY(request.getCoordinates().getY());
+        spaceMarine.setCoordinateY(request.getCoordinates().getY().longValue());
         spaceMarine.setHealth(request.getHealth());
         spaceMarine.setCategory(request.getCategory());
         spaceMarine.setWeaponType(request.getWeaponType());
@@ -55,7 +55,7 @@ public class SpaceMarineConverter {
         StarShip starShip = new StarShip();
         starShip.setId(dto.getId());
         starShip.setCoordinateX(dto.getCoordinates().getX());
-        starShip.setCoordinateY(dto.getCoordinates().getY());
+        starShip.setCoordinateY(dto.getCoordinates().getY().longValue());
         starShip.setFleet(dto.getFleet());
         starShip.setName(dto.getName());
         return starShip;
